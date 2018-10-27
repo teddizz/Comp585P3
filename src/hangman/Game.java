@@ -18,7 +18,7 @@ public class Game {
     private String[] letterAndPosArray;
     private String[] words;
     private int moves;
-    private int index;
+    private int index = 0;
     private final ReadOnlyObjectWrapper<GameStatus> gameStatus;
     private ObjectProperty<Boolean> gameState = new ReadOnlyObjectWrapper<Boolean>();
 
@@ -113,8 +113,14 @@ public class Game {
                 }
 
                 /**tmpAnswer.trim() will have a length of 0 as long as the user has NOT guessed a single letter correctly.
-                 * Its length will not equal 0 the moment the user guesses a letter correctly. */
-                if(tmpAnswer.trim().length() == 0 ){
+                 * Its length will not equal 0 the moment the user guesses a letter correctly.
+                 *
+                 * the makeMove() method can set the 'index' value to 0 when the first letter of 'answer' is guessed correctly;however,
+                 * tmpAnswer will no longer be 0. If the user guesses incorrectly, 'index' is equal to -1.
+                 * Therefore, we can begin to track the users moves from their first guess; whether it is a Good or Bad guess.
+                 *
+                 * */
+                if(tmpAnswer.trim().length() == 0 && index == 0){
                     log("new game");
                     return GameStatus.OPEN;
                 }
@@ -197,6 +203,8 @@ public class Game {
 
     private static void drawHangmanFrame() {}
 
+    /**This method updates the index value to -1 if the guess by the player is incorrect
+     * or a number from 0 to the length of the answer minus 1. ie a number between 0 to answer.length() -1*/
     public void makeMove(String letter) {
         log("\nin makeMove: " + letter);
         index = update(letter);
