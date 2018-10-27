@@ -71,7 +71,7 @@ public class Game {
          * are not modifying the property "Game on lets go" the GameStatus is simply changing to "Good Guess".
          * For this reason, we use a ChangeListener.
          *
-         *
+         * -Willy
          * */
         gameStatus = new ReadOnlyObjectWrapper<GameStatus>(this, "gameStatus", GameStatus.OPEN);
         gameStatus.addListener(new ChangeListener<GameStatus>() {
@@ -96,7 +96,6 @@ public class Game {
     }
 
     private void createGameStatusBinding() {
-        /**An Observable is */
         List<Observable> allObservableThings = new ArrayList<>();
         ObjectBinding<GameStatus> gameStatusBinding = new ObjectBinding<GameStatus>() {
             {
@@ -106,11 +105,16 @@ public class Game {
             public GameStatus computeValue() {
                 log("in computeValue");
                 GameStatus check = checkForWinner(index);
+
+                /**Returns true if the game is still in the state of guessing.
+                 * if there player has won or lost, then return the game state of WON or GAMEOVER*/
                 if(check != null ) {
                     return check;
                 }
 
-                if(tmpAnswer.trim().length() == 0){
+                /**tmpAnswer.trim() will have a length of 0 as long as the user has NOT guessed a single letter correctly.
+                 * Its length will not equal 0 the moment the user guesses a letter correctly. */
+                if(tmpAnswer.trim().length() == 0 ){
                     log("new game");
                     return GameStatus.OPEN;
                 }
@@ -126,9 +130,7 @@ public class Game {
                 }
             }
         };
-        System.out.println("This first");
         gameStatus.bind(gameStatusBinding);
-        System.out.println("This second");
     }
 
     public ReadOnlyObjectProperty<GameStatus> gameStatusProperty() {
@@ -138,11 +140,16 @@ public class Game {
         return gameStatus.get();
     }
 
+
+    /**This method obtains a random word as the answer to the hangman game*/
     private void setRandomWord() {
         //int idx = (int) (Math.random() * words.length);
         answer = "apple";//words[idx].trim(); // remove new line character
     }
 
+    /**This method creates a string with the number of spaces equal to the length of the answer.
+     * ie if the answer is 'apple' then tmpAnswer will be a string of five spaces _ _ _ _ _
+     **/
     private void prepTmpAnswer() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < answer.length(); i++) {
@@ -151,6 +158,9 @@ public class Game {
         tmpAnswer = sb.toString();
     }
 
+
+    /**This method places each letter of the 'answer' into individual indexes of the letterAndPosArray.
+     * The length of the array is equal to the length of the answer. */
     private void prepLetterAndPosArray() {
         letterAndPosArray = new String[answer.length()];
         for(int i = 0; i < answer.length(); i++) {
@@ -158,6 +168,9 @@ public class Game {
         }
     }
 
+    /**This method returns -1 if the letter entered by the user is not a letter contained in the answer.
+     * Other wise the method returns the index in which the letter entered by the player is held in the
+     * letterAndPosArray . */
     private int getValidIndex(String input) {
         int index = -1;
         for(int i = 0; i < letterAndPosArray.length; i++) {
@@ -170,9 +183,11 @@ public class Game {
         return index;
     }
 
+    /**This method updates tmpAnswer if the user has guessed a correct letter. */
     private int update(String input) {
         int index = getValidIndex(input);
         if(index != -1) {
+            /**We are here if the player made a good guess*/
             StringBuilder sb = new StringBuilder(tmpAnswer);
             sb.setCharAt(index, input.charAt(0));
             tmpAnswer = sb.toString();
@@ -191,6 +206,7 @@ public class Game {
 
     public void reset() {}
 
+    /** The number of tries remaining*/
     private int numOfTries() {
         return 5; // TODO, fix me
     }
