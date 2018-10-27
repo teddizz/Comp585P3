@@ -17,7 +17,7 @@ public class Game {
     private String tmpAnswer;
     private String[] letterAndPosArray;
     private String[] words;
-    private int moves;
+    private int numBadMoves;
     private int index = 0;
     private final ReadOnlyObjectWrapper<GameStatus> gameStatus;
     private ObjectProperty<Boolean> gameState = new ReadOnlyObjectWrapper<Boolean>();
@@ -89,7 +89,7 @@ public class Game {
         setRandomWord();
         prepTmpAnswer();
         prepLetterAndPosArray();
-        moves = 0;
+        numBadMoves = 0;
 
         gameState.setValue(false); // initial state
         createGameStatusBinding();
@@ -117,7 +117,7 @@ public class Game {
                  *
                  * the makeMove() method can set the 'index' value to 0 when the first letter of 'answer' is guessed correctly;however,
                  * tmpAnswer will no longer be 0. If the user guesses incorrectly, 'index' is equal to -1.
-                 * Therefore, we can begin to track the users moves from their first guess; whether it is a Good or Bad guess.
+                 * Therefore, we can begin to track the users numBadMoves from their first guess; whether it is a Good or Bad guess.
                  *
                  * */
                 if(tmpAnswer.trim().length() == 0 && index == 0){
@@ -129,8 +129,19 @@ public class Game {
                     return GameStatus.GOOD_GUESS;
                 }
                 else {
-                    moves++;
+                    numBadMoves++;
+                    System.out.println("numBadMoves: " + numBadMoves);
                     log("bad guess");
+                    
+                    /**Checks to see if the user has lost. 
+                     * Returns true if numBadMoves equals 5. Other wise, change the game state to 
+                     * Bad_GUESS*/ 
+                    check = checkForWinner(index);
+                    if(check != null){
+                        return check;
+                    }
+                    
+                    
                     return GameStatus.BAD_GUESS;
                     //printHangman();
                 }
@@ -229,7 +240,7 @@ public class Game {
             log("won");
             return GameStatus.WON;
         }
-        else if(moves == numOfTries()) {
+        else if(numBadMoves == numOfTries()) {
             log("game over");
             return GameStatus.GAME_OVER;
         }
