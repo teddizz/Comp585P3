@@ -17,8 +17,8 @@ public class Game {
     private String tmpAnswer;
     private String[] letterAndPosArray;
     private String[] words;
-    private int moves;
-    private int index;
+    private int numBadMoves;
+    private int index = 0;
     private final ReadOnlyObjectWrapper<GameStatus> gameStatus;
     private ObjectProperty<Boolean> gameState = new ReadOnlyObjectWrapper<Boolean>();
 
@@ -71,7 +71,7 @@ public class Game {
          * are not modifying the property "Game on lets go" the GameStatus is simply changing to "Good Guess".
          * For this reason, we use a ChangeListener.
          *
-         *
+         * -Willy
          * */
         gameStatus = new ReadOnlyObjectWrapper<GameStatus>(this, "gameStatus", GameStatus.OPEN);
         gameStatus.addListener(new ChangeListener<GameStatus>() {
@@ -89,14 +89,13 @@ public class Game {
         setRandomWord();
         prepTmpAnswer();
         prepLetterAndPosArray();
-        moves = 0;
+        numBadMoves = 0;
 
         gameState.setValue(false); // initial state
         createGameStatusBinding();
     }
 
     private void createGameStatusBinding() {
-        /**An Observable is */
         List<Observable> allObservableThings = new ArrayList<>();
         ObjectBinding<GameStatus> gameStatusBinding = new ObjectBinding<GameStatus>() {
             {
@@ -106,11 +105,22 @@ public class Game {
             public GameStatus computeValue() {
                 log("in computeValue");
                 GameStatus check = checkForWinner(index);
+
+                /**Returns true if the game is still in the state of guessing.
+                 * if there player has won or lost, then return the game state of WON or GAMEOVER*/
                 if(check != null ) {
                     return check;
                 }
 
-                if(tmpAnswer.trim().length() == 0){
+                /**tmpAnswer.trim() will have a length of 0 as long as the user has NOT guessed a single letter correctly.
+                 * Its length will not equal 0 the moment the user guesses a letter correctly.
+                 *
+                 * the makeMove() method can set the 'index' value to 0 when the first letter of 'answer' is guessed correctly;however,
+                 * tmpAnswer will no longer be 0. If the user guesses incorrectly, 'index' is equal to -1.
+                 * Therefore, we can begin to track the users numBadMoves from their first guess; whether it is a Good or Bad guess.
+                 *
+                 * */
+                if(tmpAnswer.trim().length() == 0 && index == 0){
                     log("new game");
                     return GameStatus.OPEN;
                 }
@@ -119,16 +129,25 @@ public class Game {
                     return GameStatus.GOOD_GUESS;
                 }
                 else {
-                    moves++;
+                    numBadMoves++;
+                    System.out.println("numBadMoves: " + numBadMoves);
                     log("bad guess");
+                    
+                    /**Checks to see if the user has lost. 
+                     * Returns true if numBadMoves equals 5. Other wise, change the game state to 
+                     * Bad_GUESS*/ 
+                    check = checkForWinner(index);
+                    if(check != null){
+                        return check;
+                    }
+                    
+                    
                     return GameStatus.BAD_GUESS;
                     //printHangman();
                 }
             }
         };
-        System.out.println("This first");
         gameStatus.bind(gameStatusBinding);
-        System.out.println("This second");
     }
 
     public ReadOnlyObjectProperty<GameStatus> gameStatusProperty() {
@@ -138,11 +157,16 @@ public class Game {
         return gameStatus.get();
     }
 
+
+    /**This method obtains a random word as the answer to the hangman game*/
     private void setRandomWord() {
         //int idx = (int) (Math.random() * words.length);
         answer = "apple";//words[idx].trim(); // remove new line character
     }
 
+    /**This method creates a string with the number of spaces equal to the length of the answer.
+     * ie if the answer is 'apple' then tmpAnswer will be a string of five spaces _ _ _ _ _
+     **/
     private void prepTmpAnswer() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < answer.length(); i++) {
@@ -151,6 +175,9 @@ public class Game {
         tmpAnswer = sb.toString();
     }
 
+
+    /**This method places each letter of the 'answer' into individual indexes of the letterAndPosArray.
+     * The length of the array is equal to the length of the answer. */
     private void prepLetterAndPosArray() {
         letterAndPosArray = new String[answer.length()];
         for(int i = 0; i < answer.length(); i++) {
@@ -158,6 +185,9 @@ public class Game {
         }
     }
 
+    /**This method returns -1 if the letter entered by the user is not a letter contained in the answer.
+     * Other wise the method returns the index in which the letter entered by the player is held in the
+     * letterAndPosArray . */
     private int getValidIndex(String input) {
         int index = -1;
         for(int i = 0; i < letterAndPosArray.length; i++) {
@@ -170,9 +200,11 @@ public class Game {
         return index;
     }
 
+    /**This method updates tmpAnswer if the user has guessed a correct letter. */
     private int update(String input) {
         int index = getValidIndex(input);
         if(index != -1) {
+            /**We are here if the player made a good guess*/
             StringBuilder sb = new StringBuilder(tmpAnswer);
             sb.setCharAt(index, input.charAt(0));
             tmpAnswer = sb.toString();
@@ -182,6 +214,8 @@ public class Game {
 
     private static void drawHangmanFrame() {}
 
+    /**This method updates the index value to -1 if the guess by the player is incorrect
+     * or a number from 0 to the length of the answer minus 1. ie a number between 0 to answer.length() -1*/
     public void makeMove(String letter) {
         log("\nin makeMove: " + letter);
         index = update(letter);
@@ -191,6 +225,7 @@ public class Game {
 
     public void reset() {}
 
+    /** The number of tries remaining*/
     private int numOfTries() {
         return 5; // TODO, fix me
     }
@@ -205,7 +240,7 @@ public class Game {
             log("won");
             return GameStatus.WON;
         }
-        else if(moves == numOfTries()) {
+        else if(numBadMoves == numOfTries()) {
             log("game over");
             return GameStatus.GAME_OVER;
         }
