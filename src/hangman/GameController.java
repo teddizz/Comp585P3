@@ -57,7 +57,6 @@ public class GameController {
                     System.out.print(newValue);
                     game.makeMove(newValue);
                     textField.clear();
-                    System.out.println("");
                 }
             }
         });

@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns:fx="http://javafx.com/fxml">
 
     <top>
@@ -37,6 +38,7 @@
                 </styleClass>
             </Label>
             <GridPane>
+                <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
                 <Label fx:id="enterALetterLabel" GridPane.columnIndex="0">
                     <styleClass>
                         <String fx:value="status"/>
