@@ -1,11 +1,22 @@
 .root {
-	-fx-font-family: "Comic Sans MS" ;
-	-fx-background-color: lightgoldenrodyellow ;
+	-fx-font-family: "monospace" ;
+	-fx-border-color: transparent;
 }
+
+
+
+/*Styling for the Center portion of the BorderPane*/
+
 .hangman-board {
-	-fx-background-color: #AEBBC7;
-	-fx-padding: 15px ;
-	-fx-alignment: center ;
+
+	-fx-background-image: url("../HangmanImg13.jpg");
+	-fx-background-color: black;
+	-fx-background-position: center center;
+	-fx-background-repeat: stretch;
+	/*-fx-background-color: #CDD6D5; uncomment this if we get rid of the background picture*/
+	-fx-alignment: center ; /*This aligns the hangman to the center*/
+
+
 }
 
 .hangman-board > .board-grid {
@@ -21,7 +32,29 @@
 	-fx-font-size: 128pt ;
 }
 
+
+/*Styling for the Bottom portion of the BorderPane*/
+
 .status {
-	-fx-font-size: 24pt ;
-	-fx-text-fill: sandybrown ;
+	-fx-font-size: 21pt ;
+	-fx-text-fill: yellow ;
+}
+
+.answerAndMissedSection{
+    -fx-background-color: #7B9BA6;
+}
+
+.gameStatusSection{
+    -fx-background-color: #415B76;
+}
+
+.answerAndMissedFontStyling{
+    -fx-font-size:20pt;
+    -fx-text-fill: black;
+}
+
+.movesLeft{
+    -fx-font-size:20pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }

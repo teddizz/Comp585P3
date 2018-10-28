@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml">
 
     <top>
@@ -32,18 +33,58 @@
 
     <bottom>
         <VBox>
-            <Label fx:id="statusLabel">
+            <styleClass>
+                <String fx:value="gameStatusSection"/>
+            </styleClass>
+
+            <GridPane alignment="CENTER" hgap="30">
                 <styleClass>
-                    <String fx:value="status"/>
+                    <String fx:value="answerAndMissedSection"></String>
                 </styleClass>
-            </Label>
-            <GridPane>
-                <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+                <Label text="Answer: " fx:id="answerLabel" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <styleClass>
+                        <String fx:value="answerAndMissedFontStyling"/>
+                    </styleClass>
+                </Label>
+                <Label text ="Your answer: " fx:id="playerAnswerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <styleClass>
+                        <String fx:value="answerAndMissedFontStyling"/>
+                    </styleClass>
+                </Label>
+                <Label text="Bad guesses: " fx:id="badGuesses" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                    <styleClass>
+                        <String fx:value="answerAndMissedFontStyling"/>
+                    </styleClass>
+                </Label>
+            </GridPane>
+
+            <HBox alignment="CENTER">
+                <Label fx:id="statusLabel" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <styleClass>
+                        <String fx:value="status"/>
+                    </styleClass>
+                </Label>
+            </HBox>
+
+            <HBox alignment="CENTER">
+                <Label text="You have 5 moves left." fx:id="numOfMovesLeft">
+                    <styleClass>
+                        <String fx:value="movesLeft"/>
+                    </styleClass>
+                </Label>
+            </HBox>
+
+            <GridPane alignment="CENTER">
+                <styleClass>
+                    <String fx:value=""/>
+                </styleClass>
+
                 <Label fx:id="enterALetterLabel" GridPane.columnIndex="0">
                     <styleClass>
                         <String fx:value="status"/>
                     </styleClass>
                 </Label>
+
                 <TextField fx:id="textField" GridPane.columnIndex="1">
                 </TextField>
             </GridPane>

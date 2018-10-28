@@ -15,7 +15,7 @@ public class Hangman extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Hangman.fxml"));
         loader.setController(new hangman.GameController(game));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 500, 800);
+        Scene scene = new Scene(root, 700, 780);
         scene.getStylesheets().add(getClass().getResource("Hangman.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
