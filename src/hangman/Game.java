@@ -73,7 +73,7 @@ public class Game {
          *
          * -Willy
          * */
-        gameStatus = new ReadOnlyObjectWrapper<GameStatus>(this, "gameStatus", GameStatus.OPEN);
+        gameStatus = new ReadOnlyObjectWrapper<>(this, "gameStatus", GameStatus.OPEN);
         gameStatus.addListener(new ChangeListener<GameStatus>() {
             @Override
             public void changed(ObservableValue<? extends GameStatus> observable,

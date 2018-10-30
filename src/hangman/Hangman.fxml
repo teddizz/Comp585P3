@@ -36,7 +36,7 @@
                     <String fx:value="status"/>
                 </styleClass>
             </Label>
-            <GridPane>
+            <GridPane hgap="5">
                 <Label fx:id="enterALetterLabel" GridPane.columnIndex="0">
                     <styleClass>
                         <String fx:value="status"/>
