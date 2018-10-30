@@ -8,8 +8,12 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
 
@@ -20,7 +24,7 @@ public class Game {
     private int numBadMoves;
     private int index = 0;
     private final ReadOnlyObjectWrapper<GameStatus> gameStatus;
-    private ObjectProperty<Boolean> gameState = new ReadOnlyObjectWrapper<Boolean>();
+    private ObjectProperty<Boolean> gameState = new ReadOnlyObjectWrapper<>();
 
     public enum GameStatus {
         GAME_OVER {
@@ -160,8 +164,27 @@ public class Game {
 
     /**This method obtains a random word as the answer to the hangman game*/
     private void setRandomWord() {
+        File f = new File("src/hangman/resources/Words.txt");
+        Random rand = new Random();
+        int n = 0;
+        try {
+            Scanner sc = new Scanner(f);
+            while(sc.hasNext()) {
+                n++;
+                String line = sc.nextLine();
+                if(rand.nextInt(n) == 0)
+                    answer = line;
+            }
+        } catch(FileNotFoundException e) {
+            log(e.toString());
+            answer = "apple";
+        }
+        log("Answer is: " + answer);
+
+        /* OLD
         //int idx = (int) (Math.random() * words.length);
         answer = "apple";//words[idx].trim(); // remove new line character
+        */
     }
 
     /**This method creates a string with the number of spaces equal to the length of the answer.
