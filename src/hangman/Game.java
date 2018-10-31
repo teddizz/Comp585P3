@@ -48,7 +48,7 @@ public class Game {
         OPEN {
             @Override
             public String toString() {
-                return "Game on, let's go!";
+                return "Game on, lets GO!";
             }
         }
     }

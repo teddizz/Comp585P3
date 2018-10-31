@@ -1,5 +1,6 @@
 package hangman;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.paint.Color;
 
 public class GameController {
 
@@ -39,6 +41,12 @@ public class GameController {
     private Label enterALetterLabel ;
     @FXML
     private TextField textField ;
+    @FXML
+    private Label answerLabel;
+    @FXML
+    private Label playerAnswerLabel;
+    @FXML
+    private Label badGuesses;
 
 
     /**The initialize method is invoked after all the @FXML annotated members have been injected.*/
@@ -57,7 +65,6 @@ public class GameController {
                     System.out.print(newValue);
                     game.makeMove(newValue);
                     textField.clear();
-                    System.out.println("");
                 }
             }
         });
@@ -87,8 +94,11 @@ public class GameController {
         line.setEndX(25.0f);
         line.setEndY(25.0f);
 
+
+
         Circle c = new Circle();
         c.setRadius(10);
+
 
         board.getChildren().add(line);
         board.getChildren().add(c);
