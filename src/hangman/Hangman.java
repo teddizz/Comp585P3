@@ -12,7 +12,7 @@ public class Hangman extends Application {
     @Override
     public void start(final Stage primaryStage) throws IOException {
         final Game game = new Game();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Hangman.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Hangman.fxml"));
         loader.setController(new hangman.GameController(game));
         Parent root = loader.load();
         Scene scene = new Scene(root, 700, 780);
