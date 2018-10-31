@@ -37,24 +37,57 @@
                 <String fx:value="gameStatusSection"/>
             </styleClass>
 
-            <GridPane alignment="CENTER" hgap="30">
+            <GridPane alignment="CENTER">
                 <styleClass>
                     <String fx:value="answerAndMissedSection"></String>
                 </styleClass>
 
-                <Label text="Answer: " fx:id="answerLabel" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label text="Answer:" fx:id="answerLabel" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
                 </Label>
-                <Label text ="Your answer: " fx:id="playerAnswerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0">
+
+                <!--This is the answer label that needs to get updated-->
+                <Label text="Apple" fx:id="updateAnswerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <styleClass>
+                        <String fx:value="correctGuessesStyling"/>
+                        <String fx:value="paddingRight"/>
+                    </styleClass>
+                </Label>
+
+                <Label text ="Your answer:" fx:id="playerAnswerLabel" GridPane.columnIndex="2" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
                 </Label>
-                <Label text="Bad guesses: " fx:id="badGuesses" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+
+                <!--This is the "your answer label" that needs to get updated-->
+                <Label text="_pp_e" fx:id="updateYourAnswerLabel" GridPane.columnIndex="3" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
+                    </styleClass>
+                </Label>
+
+            </GridPane>
+
+            <GridPane alignment="CENTER">
+
+                <styleClass>
+                    <String fx:value="answerAndMissedSection"></String>
+                </styleClass>
+
+                <Label text="Bad guesses:" fx:id="badGuesses" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <styleClass>
+                        <String fx:value="answerAndMissedFontStyling"/>
+                    </styleClass>
+                </Label>
+
+                <!--This is the badGuessLabel that needs to get updated-->
+                <Label text="QRSTU" fx:id="updateBadGuesses" GridPane.columnIndex="1" GridPane.rowIndex="0" >
+                    <styleClass>
+                        <String fx:value="answerAndMissedFontStyling"/>
+                        <String fx:value="badGuessesStyling"/>
                     </styleClass>
                 </Label>
             </GridPane>

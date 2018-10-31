@@ -36,7 +36,6 @@
 /*Styling for the Bottom portion of the BorderPane*/
 
 .status {
-
 	-fx-font-size: 21pt ;
 	-fx-text-fill: yellow ;
 }
@@ -50,12 +49,29 @@
 }
 
 .answerAndMissedFontStyling{
-    -fx-font-size:20pt;
+    -fx-font-size:19pt;
     -fx-text-fill: black;
+    -fx-display: inline-block;
 }
 
 .movesLeft{
     -fx-font-size:20pt;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+}
+
+.paddingRight{
+    -fx-padding:0 30 0 0;
+}
+
+.correctGuessesStyling{
+    -fx-text-fill: green;
+    -fx-font-size:21pt;
+    -fx-font-weight: bold;
+}
+
+.badGuessesStyling{
+    -fx-text-fill: red;
+    -fx-font-size:21pt;
+    -fx-font-weight: bold;
 }
