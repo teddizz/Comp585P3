@@ -164,10 +164,10 @@ public class Game {
 
     /**This method obtains a random word as the answer to the hangman game*/
     private void setRandomWord() {
-        File f = new File("src/hangman/resources/Words.txt");
         Random rand = new Random();
         int n = 0;
         try {
+            File f = new File(this.getClass().getResource("/Words.txt").toURI());
             Scanner sc = new Scanner(f);
             while(sc.hasNext()) {
                 n++;
@@ -175,7 +175,7 @@ public class Game {
                 if(rand.nextInt(n) == 0)
                     answer = line;
             }
-        } catch(FileNotFoundException e) {
+        } catch(Exception e) {
             log(e.toString());
             answer = "apple";
         }
