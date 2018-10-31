@@ -48,7 +48,7 @@
                     </styleClass>
                 </Label>
 
-                <!--This is the answer label that needs to get updated-->
+                <!--This is the answer label that needs to get updated as the user enters correct guesses-->
                 <Label text="Apple" fx:id="updateAnswerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="correctGuessesStyling"/>
@@ -56,14 +56,15 @@
                     </styleClass>
                 </Label>
 
-                <Label text ="Your answer:" fx:id="playerAnswerLabel" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <!--This label's text should be set to "Your answer: " only if the user losses-->
+                <Label  fx:id="playerAnswerLabel" GridPane.columnIndex="2" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
                 </Label>
 
-                <!--This is the "your answer label" that needs to get updated-->
-                <Label text="_pp_e" fx:id="updateYourAnswerLabel" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                <!--This is label that displays user's incomplete answer-->
+                <Label  fx:id="updateYourAnswerLabel" GridPane.columnIndex="3" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
