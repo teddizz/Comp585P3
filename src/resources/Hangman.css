@@ -10,7 +10,7 @@
 
 .hangman-board {
 
-	-fx-background-image: url("HangmanImg12.jpg");
+	-fx-background-image: url("ChalkBoard.jpg");
 	-fx-background-color: black;
 	-fx-background-position: center center;
 	-fx-background-repeat: stretch;

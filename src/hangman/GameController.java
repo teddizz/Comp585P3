@@ -9,6 +9,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -61,13 +63,41 @@ public class GameController {
         textField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if(newValue.length() > 0) {
+                if(newValue.length() > 0 && isValidChar(newValue.charAt(0))) {
                     System.out.print(newValue);
                     game.makeMove(newValue);
                     textField.clear();
                 }
+                else{
+                    textField.clear();
+                }
             }
         });
+    }
+
+    /**This method returns true if the letter entered by the player is a non-capital alphabetic letter*/
+    private boolean isValidChar(char c){
+        int ascii = (int) c;
+        System.out.println("The int value: " + ascii);
+        if( ascii >= 97 && ascii <= 122 ){
+            return true;
+        }
+        else{
+            if(ascii >= 65 && ascii <= 90){
+                createAlertBox("All answers contain non-capital letters. Enter a non-capital letter.");
+                return false;
+            }
+            else{
+                createAlertBox("You have entered a non alphabetic character. Enter a non-capital alphabetical letter.");
+                return false;
+            }
+        }
+    }
+
+    /**This method creates an alert box*/
+    private void createAlertBox(String message){
+        Alert alertBox = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK);
+        alertBox.showAndWait();
     }
 
     private void setUpStatusLabelBindings() {
@@ -93,11 +123,13 @@ public class GameController {
         line.setStartY(0.0f);
         line.setEndX(25.0f);
         line.setEndY(25.0f);
+        line.setStroke(Color.WHITE);
 
 
 
         Circle c = new Circle();
         c.setRadius(10);
+        c.fillProperty().set(Color.WHITE);
 
 
         board.getChildren().add(line);

@@ -33,10 +33,12 @@
 
     <bottom>
         <VBox>
+            <!--Sets the styling for the VBox-->
             <styleClass>
                 <String fx:value="gameStatusSection"/>
             </styleClass>
 
+            <!--This  -->
             <GridPane alignment="CENTER">
                 <styleClass>
                     <String fx:value="answerAndMissedSection"></String>
@@ -72,42 +74,40 @@
 
             </GridPane>
 
-            <GridPane alignment="CENTER">
-
+            <HBox alignment="CENTER">
                 <styleClass>
                     <String fx:value="answerAndMissedSection"></String>
                 </styleClass>
 
-                <Label text="Bad guesses:" fx:id="badGuesses" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label text="Bad guesses:" fx:id="badGuesses" >
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
                 </Label>
 
                 <!--This is the badGuessLabel that needs to get updated-->
-                <Label text="QRSTU" fx:id="updateBadGuesses" GridPane.columnIndex="1" GridPane.rowIndex="0" >
+                <Label text="QRSTU" fx:id="updateBadGuesses"  >
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                         <String fx:value="badGuessesStyling"/>
                     </styleClass>
                 </Label>
-            </GridPane>
+            </HBox>
 
-            <HBox alignment="CENTER">
+
+            <VBox alignment="CENTER">
                 <Label fx:id="statusLabel" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="status"/>
                     </styleClass>
                 </Label>
-            </HBox>
 
-            <HBox alignment="CENTER">
                 <Label text="You have 5 moves left." fx:id="numOfMovesLeft">
                     <styleClass>
                         <String fx:value="movesLeft"/>
                     </styleClass>
                 </Label>
-            </HBox>
+            </VBox>
 
             <GridPane alignment="CENTER">
                 <styleClass>
@@ -123,6 +123,7 @@
                 <TextField fx:id="textField" GridPane.columnIndex="1">
                 </TextField>
             </GridPane>
+
         </VBox>
     </bottom>
 
