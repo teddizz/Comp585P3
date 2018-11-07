@@ -136,10 +136,12 @@ public class Game {
                     numBadMoves++;
                     System.out.println("numBadMoves: " + numBadMoves);
                     log("bad guess");
+
                     
                     /**Checks to see if the user has lost. 
                      * Returns true if numBadMoves equals 5. Other wise, change the game state to 
-                     * Bad_GUESS*/ 
+                     * Bad_GUESS*/
+
                     check = checkForWinner(index);
                     if(check != null){
                         return check;
@@ -189,6 +191,9 @@ public class Game {
         //int idx = (int) (Math.random() * words.length);
         answer = "apple";//words[idx].trim(); // remove new line character
         */
+    }
+    public int getBadmoves(){
+        return numBadMoves;
     }
 
     /**This method creates a string with the number of spaces equal to the length of the answer.
@@ -243,18 +248,20 @@ public class Game {
 
     /**This method updates the index value to -1 if the guess by the player is incorrect
      * or a number from 0 to the length of the answer minus 1. ie a number between 0 to answer.length() -1*/
-    public void makeMove(String letter) {
+    public int makeMove(String letter) {
+
         log("\nin makeMove: " + letter);
         index = update(letter);
         // this will toggle the state of the game
         gameState.setValue(!gameState.getValue());
+        return numBadMoves;
     }
 
     public void reset() {}
 
     /** The number of tries remaining*/
     private int numOfTries() {
-        return 5; // TODO, fix me
+        return 6; // TODO, fix me
     }
 
     public static void log(String s) {
