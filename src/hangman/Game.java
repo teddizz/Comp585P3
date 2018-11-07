@@ -161,6 +161,10 @@ public class Game {
         return gameStatus.get();
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
 
     /**This method obtains a random word as the answer to the hangman game*/
     private void setRandomWord() {

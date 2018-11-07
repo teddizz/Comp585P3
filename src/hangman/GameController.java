@@ -49,6 +49,8 @@ public class GameController {
     private Label playerAnswerLabel;
     @FXML
     private Label badGuesses;
+    @FXML
+    private Label updateAnswerLabel;
 
 
     /**The initialize method is invoked after all the @FXML annotated members have been injected.*/
@@ -71,6 +73,9 @@ public class GameController {
                 else{
                     textField.clear();
                 }
+
+
+
             }
         });
     }
@@ -105,6 +110,7 @@ public class GameController {
         System.out.println("in setUpStatusLabelBindings");
         statusLabel.textProperty().bind(Bindings.format("%s", game.gameStatusProperty()));
         enterALetterLabel.textProperty().bind(Bindings.format("%s", "Enter a letter:"));
+        updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getAnswer()));
 		/*	Bindings.when(
 					game.currentPlayerProperty().isNotNull()
 			).then(

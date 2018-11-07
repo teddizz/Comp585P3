@@ -51,7 +51,7 @@
                 </Label>
 
                 <!--This is the answer label that needs to get updated as the user enters correct guesses-->
-                <Label text="Apple" fx:id="updateAnswerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label fx:id="updateAnswerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="correctGuessesStyling"/>
                         <String fx:value="paddingRight"/>
