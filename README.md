@@ -11,7 +11,7 @@ Fix the following issues in the attached Hangman JavaFX project.
 
 3. Add additional box which shows user input
 
-4. Fix stick figure
+4. ~~Fix stick figure~~
 
 5. Make sure user can start a new game
 
