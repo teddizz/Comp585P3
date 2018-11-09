@@ -241,6 +241,7 @@ public class Game {
 
     /**This method updates tmpAnswer if the user has guessed a correct letter. */
     private int update(String input) {
+        this.index = -1;
         ArrayList<Integer> index = getValidIndex(input);
         if(index.size() != 0 ) {
             /**We are here if the player made a good guess*/
