@@ -250,6 +250,10 @@ public class Game {
                 sb.setCharAt(index.get(i), input.charAt(0));
                 tmpAnswer = sb.toString();
             }
+        } else {
+            if( numBadMoves < numOfTries() ) {
+                updateBadGuesses += input;
+            }
         }
         return this.index;
     }
