@@ -102,7 +102,7 @@
                     </styleClass>
                 </Label>
 
-                <Label text="You have 5 moves left." fx:id="numOfMovesLeft">
+                <Label fx:id="numOfMovesLeft">
                     <styleClass>
                         <String fx:value="movesLeft"/>
                     </styleClass>
