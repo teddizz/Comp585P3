@@ -270,7 +270,7 @@ public class Game {
     public void reset() {}
 
     /** The number of tries remaining*/
-    private int numOfTries() {
+    public int numOfTries() {
         return 6; // TODO, fix me
     }
 

@@ -76,7 +76,7 @@ public class GameController {
                     int badmoves = game.makeMove(newValue);
                     updateBadGuesses.textProperty().bind(Bindings.format("%s", game.getUpdateBadGuesses()));
                     updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
-                    numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (6-game.getBadmoves()) + " moves left."));
+                    numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
                     textField.clear();
                     drawHangman(badmoves);
                 }
@@ -121,7 +121,7 @@ public class GameController {
         statusLabel.textProperty().bind(Bindings.format("%s", game.gameStatusProperty()));
         enterALetterLabel.textProperty().bind(Bindings.format("%s", "Enter a letter:"));
         updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
-        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (6-game.getBadmoves()) + " moves left."));
+        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
         if( game.getUpdateBadGuesses() == null ) {
             updateBadGuesses.textProperty().bind(Bindings.format("%s", ""));
         } else {
