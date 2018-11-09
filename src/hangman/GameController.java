@@ -130,7 +130,7 @@ public class GameController {
         statusLabel.textProperty().bind(Bindings.format("%s", ""));
         enterALetterLabel.textProperty().bind(Bindings.format("%s", "Enter a letter:"));
         updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
-        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
+        numOfMovesLeft.textProperty().bind(Bindings.format("%s", ""));
         if( game.getUpdateBadGuesses() == null ) {
             updateBadGuesses.textProperty().bind(Bindings.format("%s", ""));
         } else {
@@ -266,10 +266,11 @@ public class GameController {
         game.reset();
         updateBadGuesses.textProperty().bind(Bindings.format("%s", game.getUpdateBadGuesses()));
         updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
-        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
+        numOfMovesLeft.textProperty().bind(Bindings.format("%s", ""));
         updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
         playerAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
         statusLabel.textProperty().bind(Bindings.format("%s", ""));
+        board.getChildren().clear();
         drawHangman(0);
     }
 
