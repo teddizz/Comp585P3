@@ -59,7 +59,7 @@
                 </Label>
 
                 <!--This label's text should be set to "Your answer: " only if the user losses-->
-                <Label  fx:id="playerAnswerLabel" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <Label fx:id="playerAnswerLabel" GridPane.columnIndex="2" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
@@ -86,7 +86,7 @@
                 </Label>
 
                 <!--This is the badGuessLabel that needs to get updated-->
-                <Label text="QRSTU" fx:id="updateBadGuesses"  >
+                <Label fx:id="updateBadGuesses"  >
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                         <String fx:value="badGuessesStyling"/>

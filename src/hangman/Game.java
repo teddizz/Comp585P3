@@ -17,9 +17,10 @@ import java.util.Scanner;
 
 public class Game {
 
-    private String answer;
-    private String tmpAnswer;
-    private String[] letterAndPosArray;
+    private String answer; // actual answer
+    private String tmpAnswer; // user's answer: a _ _ l _
+    private String updateBadGuesses;
+    private String[] letterAndPosArray; // contains the answer in an array form
     private String[] words;
     private int numBadMoves;
     private int index = 0;
@@ -90,6 +91,7 @@ public class Game {
             }
 
         });
+        updateBadGuesses = "";
         setRandomWord();
         prepTmpAnswer();
         prepLetterAndPosArray();
@@ -163,10 +165,6 @@ public class Game {
         return gameStatus.get();
     }
 
-    public String getAnswer() {
-        return answer;
-    }
-
 
     /**This method obtains a random word as the answer to the hangman game*/
     private void setRandomWord() {
@@ -196,13 +194,23 @@ public class Game {
         return numBadMoves;
     }
 
+    public String getAnswer() {
+         return answer;
+    }
+
+    public String getTmpAnswer() { return tmpAnswer; }
+
+    public String getUpdateBadGuesses() {
+        return updateBadGuesses;
+    }
+
     /**This method creates a string with the number of spaces equal to the length of the answer.
      * ie if the answer is 'apple' then tmpAnswer will be a string of five spaces _ _ _ _ _
      **/
     private void prepTmpAnswer() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < answer.length(); i++) {
-            sb.append(" ");
+            sb.append("_");
         }
         tmpAnswer = sb.toString();
     }
