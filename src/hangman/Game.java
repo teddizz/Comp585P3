@@ -21,7 +21,6 @@ public class Game {
     private String tmpAnswer; // user's answer: a _ _ l _
     private String updateBadGuesses;
     private String[] letterAndPosArray; // contains the answer in an array form
-    private String[] words;
     private int numBadMoves;
     private int index = 0;
     private final ReadOnlyObjectWrapper<GameStatus> gameStatus;
@@ -228,13 +227,13 @@ public class Game {
     /**This method returns -1 if the letter entered by the user is not a letter contained in the answer.
      * Other wise the method returns the index in which the letter entered by the player is held in the
      * letterAndPosArray . */
-    private int getValidIndex(String input) {
-        int index = -1;
+    private ArrayList<Integer> getValidIndex(String input) {
+        ArrayList<Integer> index = new ArrayList<Integer>();
         for(int i = 0; i < letterAndPosArray.length; i++) {
             if(letterAndPosArray[i].equals(input)) {
-                index = i;
+                index.add(i);
+                this.index = i;
                 letterAndPosArray[i] = "";
-                break;
             }
         }
         return index;
@@ -242,14 +241,16 @@ public class Game {
 
     /**This method updates tmpAnswer if the user has guessed a correct letter. */
     private int update(String input) {
-        int index = getValidIndex(input);
-        if(index != -1) {
+        ArrayList<Integer> index = getValidIndex(input);
+        if(index.size() != 0 ) {
             /**We are here if the player made a good guess*/
-            StringBuilder sb = new StringBuilder(tmpAnswer);
-            sb.setCharAt(index, input.charAt(0));
-            tmpAnswer = sb.toString();
+            for( int i = 0; i < index.size(); i++ ){
+                StringBuilder sb = new StringBuilder(tmpAnswer);
+                sb.setCharAt(index.get(i), input.charAt(0));
+                tmpAnswer = sb.toString();
+            }
         }
-        return index;
+        return this.index;
     }
 
     private static void drawHangmanFrame() {}
