@@ -57,6 +57,8 @@ public class GameController {
     private Label updateBadGuesses;
     @FXML
     private Label numOfMovesLeft;
+    @FXML
+    private Label updateYourAnswerLabel;
 
 
     /**The initialize method is invoked after all the @FXML annotated members have been injected.*/
@@ -79,9 +81,15 @@ public class GameController {
                     numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
                     textField.clear();
                     drawHangman(badmoves);
+                    if( game.getBadmoves() == game.numOfTries() ){
+                        updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getAnswer()));
+                        playerAnswerLabel.textProperty().bind(Bindings.format("%s", "Your answer:"));
+                        updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
+                    }
                 }
-                else{
+                else {
                     textField.clear();
+
                 }
 
 
