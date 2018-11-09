@@ -86,6 +86,7 @@ public class GameController {
                         playerAnswerLabel.textProperty().bind(Bindings.format("%s", "Your answer:"));
                         updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
                     }
+                    statusLabel.textProperty().bind(Bindings.format("%s", game.gameStatusProperty()));
                 }
                 else {
                     textField.clear();
@@ -126,7 +127,7 @@ public class GameController {
     private void setUpStatusLabelBindings() {
 
         System.out.println("in setUpStatusLabelBindings");
-        statusLabel.textProperty().bind(Bindings.format("%s", game.gameStatusProperty()));
+        statusLabel.textProperty().bind(Bindings.format("%s", ""));
         enterALetterLabel.textProperty().bind(Bindings.format("%s", "Enter a letter:"));
         updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
         numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
@@ -268,6 +269,7 @@ public class GameController {
         numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
         updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
         playerAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
+        statusLabel.textProperty().bind(Bindings.format("%s", ""));
         drawHangman(0);
     }
 
