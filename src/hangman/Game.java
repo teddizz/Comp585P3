@@ -271,7 +271,18 @@ public class Game {
         return numBadMoves;
     }
 
-    public void reset() {}
+    public void reset() {
+        index = 0;
+        updateBadGuesses = "";
+        setRandomWord();
+        prepTmpAnswer();
+        prepLetterAndPosArray();
+        numBadMoves = 0;
+
+        gameState.setValue(false); // initial state
+        createGameStatusBinding();
+
+    }
 
     /** The number of tries remaining*/
     public int numOfTries() {

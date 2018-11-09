@@ -263,6 +263,12 @@ public class GameController {
     @FXML
     private void newHangman() {
         game.reset();
+        updateBadGuesses.textProperty().bind(Bindings.format("%s", game.getUpdateBadGuesses()));
+        updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
+        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
+        updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
+        playerAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
+        drawHangman(0);
     }
 
     @FXML
