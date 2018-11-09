@@ -78,19 +78,28 @@ public class GameController {
                     int badmoves = game.makeMove(newValue);
                     updateBadGuesses.textProperty().bind(Bindings.format("%s", game.getUpdateBadGuesses()));
                     updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
-                    numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries()-game.getBadmoves()) + " moves left."));
+                    if( game.getBadmoves() > 0 ) {
+                        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries() - game.getBadmoves()) + " moves left."));
+                        badGuesses.textProperty().bind(Bindings.format("%s", "Bad guesses:"));
+                    }
                     textField.clear();
                     drawHangman(badmoves);
                     if( game.getBadmoves() == game.numOfTries() ){
                         updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getAnswer()));
                         playerAnswerLabel.textProperty().bind(Bindings.format("%s", "Your answer:"));
                         updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
+                        enterALetterLabel.setVisible(false);
+                        textField.setVisible(false);
                     }
                     statusLabel.textProperty().bind(Bindings.format("%s", game.gameStatusProperty()));
                 }
                 else {
                     textField.clear();
-
+                    if( game.getWon() ){
+                        enterALetterLabel.setVisible(false);
+                        textField.setVisible(false);
+                        numOfMovesLeft.textProperty().bind(Bindings.format("%s", ""));
+                    }
                 }
 
 
@@ -270,6 +279,9 @@ public class GameController {
         updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
         playerAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
         statusLabel.textProperty().bind(Bindings.format("%s", ""));
+        badGuesses.textProperty().bind(Bindings.format("%s", ""));
+        enterALetterLabel.setVisible(true);
+        textField.setVisible(true);
         board.getChildren().clear();
         drawHangman(0);
     }

@@ -25,6 +25,7 @@ public class Game {
     private int index = 0;
     private final ReadOnlyObjectWrapper<GameStatus> gameStatus;
     private ObjectProperty<Boolean> gameState = new ReadOnlyObjectWrapper<>();
+    private boolean won = false;
 
     public enum GameStatus {
         GAME_OVER {
@@ -203,6 +204,8 @@ public class Game {
         return updateBadGuesses;
     }
 
+    public boolean getWon() { return won; }
+
     /**This method creates a string with the number of spaces equal to the length of the answer.
      * ie if the answer is 'apple' then tmpAnswer will be a string of five spaces _ _ _ _ _
      **/
@@ -278,6 +281,7 @@ public class Game {
         prepTmpAnswer();
         prepLetterAndPosArray();
         numBadMoves = 0;
+        won = false;
 
         gameState.setValue(false); // initial state
         createGameStatusBinding();
@@ -297,6 +301,7 @@ public class Game {
         log("in checkForWinner");
         if(tmpAnswer.equals(answer)) {
             log("won");
+            this.won = true;
             return GameStatus.WON;
         }
         else if(numBadMoves == numOfTries()) {

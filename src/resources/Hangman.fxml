@@ -79,7 +79,7 @@
                     <String fx:value="answerAndMissedSection"></String>
                 </styleClass>
 
-                <Label text="Bad guesses:" fx:id="badGuesses" >
+                <Label fx:id="badGuesses" >
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
