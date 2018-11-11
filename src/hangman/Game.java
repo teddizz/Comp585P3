@@ -19,9 +19,10 @@ public class Game {
 
     private String answer; // actual answer
     private String tmpAnswer; // user's answer: a _ _ l _
+    private String tmpAnswerTwo;
     private String updateBadGuesses;
     private String[] letterAndPosArray; // contains the answer in an array form
-    private int numBadMoves;
+    protected int numBadMoves;
     private int index = 0;
     private final ReadOnlyObjectWrapper<GameStatus> gameStatus;
     private ObjectProperty<Boolean> gameState = new ReadOnlyObjectWrapper<>();
@@ -126,7 +127,7 @@ public class Game {
                  * Therefore, we can begin to track the users numBadMoves from their first guess; whether it is a Good or Bad guess.
                  *
                  * */
-                if(tmpAnswer.trim().length() == 0 && index == 0){
+                if(tmpAnswer.replace("_"," ").trim().length() == 0 && index == 0){
                     log("new game");
                     return GameStatus.OPEN;
                 }
