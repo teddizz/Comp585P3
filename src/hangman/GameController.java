@@ -51,6 +51,14 @@ public class GameController {
     private Label playerAnswerLabel;
     @FXML
     private Label badGuesses;
+    @FXML
+    private Label updateAnswerLabel;
+    @FXML
+    private Label updateBadGuesses;
+    @FXML
+    private Label numOfMovesLeft;
+    @FXML
+    private Label updateYourAnswerLabel;
 
 
     /**The initialize method is invoked after all the @FXML annotated members have been injected.*/
@@ -68,12 +76,34 @@ public class GameController {
                 if(newValue.length() > 0 && isValidChar(newValue.charAt(0))) {
                     System.out.print(newValue);
                     int badmoves = game.makeMove(newValue);
+                    updateBadGuesses.textProperty().bind(Bindings.format("%s", game.getUpdateBadGuesses()));
+                    updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
+                    if( game.getBadmoves() > 0 ) {
+                        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries() - game.getBadmoves()) + " moves left."));
+                        badGuesses.textProperty().bind(Bindings.format("%s", "Bad guesses:"));
+                    }
                     textField.clear();
                     drawHangman(badmoves);
+                    if( game.getBadmoves() == game.numOfTries() ){
+                        updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getAnswer()));
+                        playerAnswerLabel.textProperty().bind(Bindings.format("%s", "Your answer:"));
+                        updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
+                        enterALetterLabel.setVisible(false);
+                        textField.setVisible(false);
+                    }
+                    statusLabel.textProperty().bind(Bindings.format("%s", game.gameStatusProperty()));
                 }
-                else{
+                else {
                     textField.clear();
+                    if( game.getWon() ){
+                        enterALetterLabel.setVisible(false);
+                        textField.setVisible(false);
+                        numOfMovesLeft.textProperty().bind(Bindings.format("%s", ""));
+                    }
                 }
+
+
+
             }
         });
     }
@@ -108,6 +138,14 @@ public class GameController {
         System.out.println("in setUpStatusLabelBindings");
         statusLabel.textProperty().bind(Bindings.format("%s", game.gameStatusProperty()));
         enterALetterLabel.textProperty().bind(Bindings.format("%s", "Enter a letter:"));
+        updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
+        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries() - game.getBadmoves()) + " moves left." ));
+        if( game.getUpdateBadGuesses() == null ) {
+            updateBadGuesses.textProperty().bind(Bindings.format("%s", ""));
+        } else {
+            updateBadGuesses.textProperty().bind(Bindings.format("%s", game.getUpdateBadGuesses()));
+        }
+
 		/*	Bindings.when(
 					game.currentPlayerProperty().isNotNull()
 			).then(
@@ -235,6 +273,17 @@ public class GameController {
     @FXML
     private void newHangman() {
         game.reset();
+        updateBadGuesses.textProperty().bind(Bindings.format("%s", game.getUpdateBadGuesses()));
+        updateAnswerLabel.textProperty().bind(Bindings.format("%s", game.getTmpAnswer()));
+        numOfMovesLeft.textProperty().bind(Bindings.format("%s", "You have " + (game.numOfTries() - game.getBadmoves()) + " moves left." ));
+        updateYourAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
+        playerAnswerLabel.textProperty().bind(Bindings.format("%s", ""));
+        statusLabel.textProperty().bind(Bindings.format("%s", game.gameStatusProperty()));
+        badGuesses.textProperty().bind(Bindings.format("%s", ""));
+        enterALetterLabel.setVisible(true);
+        textField.setVisible(true);
+        board.getChildren().clear();
+        drawHangman(0);
     }
 
     @FXML

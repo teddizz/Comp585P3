@@ -17,14 +17,16 @@ import java.util.Scanner;
 
 public class Game {
 
-    private String answer;
-    private String tmpAnswer;
-    private String[] letterAndPosArray;
-    private String[] words;
-    private int numBadMoves;
+    private String answer; // actual answer
+    private String tmpAnswer; // user's answer: a _ _ l _
+    private String tmpAnswerTwo;
+    private String updateBadGuesses;
+    private String[] letterAndPosArray; // contains the answer in an array form
+    protected int numBadMoves;
     private int index = 0;
     private final ReadOnlyObjectWrapper<GameStatus> gameStatus;
     private ObjectProperty<Boolean> gameState = new ReadOnlyObjectWrapper<>();
+    private boolean won = false;
 
     public enum GameStatus {
         GAME_OVER {
@@ -90,6 +92,7 @@ public class Game {
             }
 
         });
+        updateBadGuesses = "";
         setRandomWord();
         prepTmpAnswer();
         prepLetterAndPosArray();
@@ -124,7 +127,7 @@ public class Game {
                  * Therefore, we can begin to track the users numBadMoves from their first guess; whether it is a Good or Bad guess.
                  *
                  * */
-                if(tmpAnswer.trim().length() == 0 && index == 0){
+                if(tmpAnswer.replace("_"," ").trim().length() == 0 && index == 0){
                     log("new game");
                     return GameStatus.OPEN;
                 }
@@ -192,13 +195,25 @@ public class Game {
         return numBadMoves;
     }
 
+    public String getAnswer() {
+         return answer;
+    }
+
+    public String getTmpAnswer() { return tmpAnswer; }
+
+    public String getUpdateBadGuesses() {
+        return updateBadGuesses;
+    }
+
+    public boolean getWon() { return won; }
+
     /**This method creates a string with the number of spaces equal to the length of the answer.
      * ie if the answer is 'apple' then tmpAnswer will be a string of five spaces _ _ _ _ _
      **/
     private void prepTmpAnswer() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < answer.length(); i++) {
-            sb.append(" ");
+            sb.append("_");
         }
         tmpAnswer = sb.toString();
     }
@@ -216,13 +231,13 @@ public class Game {
     /**This method returns -1 if the letter entered by the user is not a letter contained in the answer.
      * Other wise the method returns the index in which the letter entered by the player is held in the
      * letterAndPosArray . */
-    private int getValidIndex(String input) {
-        int index = -1;
+    private ArrayList<Integer> getValidIndex(String input) {
+        ArrayList<Integer> index = new ArrayList<Integer>();
         for(int i = 0; i < letterAndPosArray.length; i++) {
             if(letterAndPosArray[i].equals(input)) {
-                index = i;
+                index.add(i);
+                this.index = i;
                 letterAndPosArray[i] = "";
-                break;
             }
         }
         return index;
@@ -230,14 +245,21 @@ public class Game {
 
     /**This method updates tmpAnswer if the user has guessed a correct letter. */
     private int update(String input) {
-        int index = getValidIndex(input);
-        if(index != -1) {
+        this.index = -1;
+        ArrayList<Integer> index = getValidIndex(input);
+        if(index.size() != 0 ) {
             /**We are here if the player made a good guess*/
-            StringBuilder sb = new StringBuilder(tmpAnswer);
-            sb.setCharAt(index, input.charAt(0));
-            tmpAnswer = sb.toString();
+            for( int i = 0; i < index.size(); i++ ){
+                StringBuilder sb = new StringBuilder(tmpAnswer);
+                sb.setCharAt(index.get(i), input.charAt(0));
+                tmpAnswer = sb.toString();
+            }
+        } else {
+            if( numBadMoves < numOfTries() ) {
+                updateBadGuesses += input;
+            }
         }
-        return index;
+        return this.index;
     }
 
     private static void drawHangmanFrame() {}
@@ -253,10 +275,22 @@ public class Game {
         return numBadMoves;
     }
 
-    public void reset() {}
+    public void reset() {
+        index = 0;
+        updateBadGuesses = "";
+        setRandomWord();
+        prepTmpAnswer();
+        prepLetterAndPosArray();
+        numBadMoves = 0;
+        won = false;
+
+        gameState.setValue(false); // initial state
+        createGameStatusBinding();
+
+    }
 
     /** The number of tries remaining*/
-    private int numOfTries() {
+    public int numOfTries() {
         return 6; // TODO, fix me
     }
 
@@ -268,6 +302,7 @@ public class Game {
         log("in checkForWinner");
         if(tmpAnswer.equals(answer)) {
             log("won");
+            this.won = true;
             return GameStatus.WON;
         }
         else if(numBadMoves == numOfTries()) {

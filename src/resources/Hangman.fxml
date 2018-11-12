@@ -51,7 +51,7 @@
                 </Label>
 
                 <!--This is the answer label that needs to get updated as the user enters correct guesses-->
-                <Label text="Apple" fx:id="updateAnswerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label fx:id="updateAnswerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="correctGuessesStyling"/>
                         <String fx:value="paddingRight"/>
@@ -59,7 +59,7 @@
                 </Label>
 
                 <!--This label's text should be set to "Your answer: " only if the user losses-->
-                <Label  fx:id="playerAnswerLabel" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <Label fx:id="playerAnswerLabel" GridPane.columnIndex="2" GridPane.rowIndex="0">
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
@@ -79,14 +79,14 @@
                     <String fx:value="answerAndMissedSection"></String>
                 </styleClass>
 
-                <Label text="Bad guesses:" fx:id="badGuesses" >
+                <Label fx:id="badGuesses" >
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                     </styleClass>
                 </Label>
 
                 <!--This is the badGuessLabel that needs to get updated-->
-                <Label text="QRSTU" fx:id="updateBadGuesses"  >
+                <Label fx:id="updateBadGuesses"  >
                     <styleClass>
                         <String fx:value="answerAndMissedFontStyling"/>
                         <String fx:value="badGuessesStyling"/>
@@ -102,7 +102,7 @@
                     </styleClass>
                 </Label>
 
-                <Label text="You have 5 moves left." fx:id="numOfMovesLeft">
+                <Label fx:id="numOfMovesLeft">
                     <styleClass>
                         <String fx:value="movesLeft"/>
                     </styleClass>
